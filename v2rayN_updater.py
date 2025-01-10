@@ -313,23 +313,29 @@ def ping_address(address, config):
             param = '-n'
             timeout_param = '-w'
             timeout_value = config['validation']['ping_timeout']  # 单位为毫秒
+            ping_command = ['ping', param, '1', timeout_param, str(timeout_value), host_port.split(':')[0]]
         else:  # Linux/Mac
             param = '-c'
             timeout_param = '-W'
             timeout_value = config['validation']['ping_timeout'] / 1000  # 转换为秒
+            ping_command = ['ping', param, '1', timeout_param, str(timeout_value), host_port.split(':')[0]]
         
-        command = ['ping', param, '1', timeout_param, str(timeout_value), host_port.split(':')[0]]
-        logging.debug(f"Running ping command: {' '.join(command)}")
-        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        logging.debug(f"Running ping command: {' '.join(ping_command)}")
+        result = subprocess.run(ping_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         
         # 使用系统默认编码解码输出
         output = result.stdout.decode(locale.getpreferredencoding(), errors='ignore')
         logging.debug(f"Ping output for {host_port}: {output}")
         
-        # 提取延迟时间（通用方法）
-        match = re.search(r'=(\d+\.?\d*)\s*ms', output)
+        # 检查是否超时
+        if "超时" in output or "timed out" in output or "timeout" in output:
+            logging.debug(f"Ping failed for {host_port}: request timed out")
+            return False, float('inf')
+        
+        # 提取延迟时间（通用模式）
+        match = re.search(r'(\d+\.?\d*)\s*ms', output)
         if match:
-            delay = float(match.group(1))  # 第一个匹配项是延迟时间
+            delay = float(match.group(1))  # 提取延迟时间
             logging.debug(f"Ping successful for {host_port}: delay={delay}ms")
             return True, delay
         
@@ -484,7 +490,7 @@ def main():
         config = load_config()
         download_and_combine_subscriptions(config)
         validate_addresses(config)
-        
+
         # 根据模式决定是否上传到 Git
         if config.get('mode') == 'local':
             upload_to_git(config)
@@ -495,4 +501,4 @@ def main():
         logging.info("Cleaning up resources...")
 
 if __name__ == "__main__":
-    main()
+  main()
