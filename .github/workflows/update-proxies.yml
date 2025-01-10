@@ -23,6 +23,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests jsonschema gitpython schedule
 
+      - name: Set environment variables
+        env:
+          GIT_USERNAME: ${{ secrets.GIT_USERNAME }}  # 从 Secrets 中读取
+          GIT_PASSWORD: ${{ secrets.GIT_PASSWORD }}  # 从 Secrets 中读取
+
       - name: Run v2rayN updater
         run: |
           python v2rayN_updater.py

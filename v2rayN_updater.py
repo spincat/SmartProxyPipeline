@@ -500,9 +500,8 @@ def main():
         download_and_combine_subscriptions(config)
         validate_addresses(config)
 
-        # 根据模式决定是否上传到 Git
-        if config.get('mode') == 'local':
-            upload_to_git(config)
+        # 两种模式都需上传到 Git（Git Action模式只能写入文件到临时目录）
+        upload_to_git(config)
        
     except Exception as e:
         logging.error(f"An error occurred in the main loop: {e}")
