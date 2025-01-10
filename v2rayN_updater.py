@@ -420,6 +420,9 @@ def upload_to_git(config):
         if not git_username or not git_password:
             logging.error("Git username or password is not provided in environment variables.")
             return
+        else:
+            logging.info(f"Git username: {git_username}")
+            logging.info(f"Git password: [hidden]")  # 不要打印密码
         
         # 获取 Git 用户身份
         git_user_name = config.get('git', {}).get('user_name')
@@ -482,9 +485,10 @@ def upload_to_git(config):
         
         # 推送到远程仓库的 main 分支
         logging.info("Pushing changes to remote repository...")
+        # 更新远程 URL，包含用户名和密码
         if git_username and git_password:
             origin_url = origin.url
-            origin.set_url(f"https://{git_password}@github.com/spincat/SmartProxyPipeline.git")
+            origin.set_url(f"https://{git_username}:{git_password}@github.com/spincat/SmartProxyPipeline.git")
         
         repo.git.push('origin', 'main')
         
