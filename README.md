@@ -12,3 +12,20 @@
 1. 克隆仓库：
    ```bash
    git clone https://github.com/spincat/SmartProxyPipeline.git
+
+2. 安装依赖：
+   ```bash
+   pip install -r requirements.txt
+
+## 使用
+1. 配置 config.json 文件。
+
+2. 运行主程序：
+   ```bash
+   python main.py
+
+## 贡献
+欢迎提交 Issue 和 Pull Request！
+
+## 许可证
+本项目采用 MIT License。
