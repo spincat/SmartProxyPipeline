@@ -488,7 +488,7 @@ def upload_to_git(config):
         # 更新远程 URL，包含用户名和密码
         if git_username and git_password:
             origin_url = origin.url
-            origin.set_url(f"https://{git_username}:{git_password}@github.com/spincat/SmartProxyPipeline.git")
+            origin.set_url(f"https://{git_username}:{git_password}@github.com/{git_username}/SmartProxyPipeline.git")
         
         repo.git.push('origin', 'main')
         

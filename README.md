@@ -24,6 +24,14 @@
    ```bash
    python main.py
 
+
+## 注意
+1. 在使用Github Action时，需要先配置Github Action 的权限：
+   进入项目：Settings > Secrets and variables > Actions > Repository secrets 设置好环境变量（GIT_USERNAME、GIT_PASSWORD）
+
+2. 并确保 GitHub Actions 具有推送权限：
+   仓库设置：到 Settings > Actions > General > Workflow permissions 中，启用 Read and write permissions。
+
 ## 贡献
 欢迎提交 Issue 和 Pull Request！
 
