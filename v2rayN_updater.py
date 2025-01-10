@@ -425,7 +425,7 @@ def upload_to_git(config):
             logging.info(f"Git password: [hidden]")  # 不要打印密码
         
         # 获取 Git 用户身份
-        git_user_name = config.get('git', {}).get('user_name')
+        git_user_name = os.getenv('GIT_USERNAME')
         git_user_email = config.get('git', {}).get('user_email')
         
         if not repo_url:
