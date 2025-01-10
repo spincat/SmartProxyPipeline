@@ -24,8 +24,5 @@ jobs:
           pip install requests jsonschema gitpython schedule
 
       - name: Run v2rayN updater
-        env:
-          GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
-          GIT_PASSWORD: ${{ secrets.GIT_PASSWORD }}
         run: |
-          python d:/Work/v2rayN-updater/v2rayN_updater.py
+          python v2rayN_updater.py

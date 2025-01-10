@@ -98,7 +98,7 @@ def download_subscription(url, config):
         
         # 如果启用代理，则设置代理
         proxies = None
-        if enable_proxy:
+        if enable_proxy and config.get('mode') == 'local':  # 仅在本机模式启用代理
             proxies = {
                 'http': proxies_config.get('http'),
                 'https': proxies_config.get('https')
@@ -393,13 +393,10 @@ def upload_to_git(config):
     try:
         # 获取 valid 文件路径
         valid_file_path = config['validation']['valid_output_file']
-        
         # 获取 Git 仓库路径
         repo_path = config.get('git', {}).get('repo_path', '.')
-        
         # 获取 Git 仓库 URL
         repo_url = config.get('git', {}).get('repo_url')
-        
         # 获取 Git 用户名和密码（或 token）
         git_username = os.getenv('GIT_USERNAME')
         git_password = os.getenv('GIT_PASSWORD')
@@ -479,16 +476,6 @@ def upload_to_git(config):
     except Exception as e:
         logging.error(f"Failed to upload to Git: {e}")
 
-def scheduled_validation(config):
-    """
-    定时任务：定期验证地址。
-
-    Args:
-        config (dict): 配置文件字典。
-    """
-    logging.info("Running scheduled validation...")
-    validate_addresses(config)
-
 def main():
     """
     主程序入口。
@@ -497,12 +484,11 @@ def main():
         config = load_config()
         download_and_combine_subscriptions(config)
         validate_addresses(config)
-        # 上传到 Git
-        upload_to_git(config)
-        schedule.every(config['validation']['validation_interval']).seconds.do(scheduled_validation, config)
-        while True:
-            schedule.run_pending()
-            time.sleep(1)
+        
+        # 根据模式决定是否上传到 Git
+        if config.get('mode') == 'local':
+            upload_to_git(config)
+       
     except Exception as e:
         logging.error(f"An error occurred in the main loop: {e}")
     finally:

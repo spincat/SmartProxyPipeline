@@ -1,4 +1,5 @@
 {
+  "mode": "github-action",
   "download": {
     "providers": [
       {
@@ -20,7 +21,7 @@
     "https": "http://127.0.0.1:10808"
   },
   "git": {
-    "enable_git_upload": true,
+    "enable_git_upload": false,
     "repo_url": "https://github.com/spincat/SmartProxyPipeline.git",
     "repo_path": ".",
     "username": "$GIT_USERNAME",
