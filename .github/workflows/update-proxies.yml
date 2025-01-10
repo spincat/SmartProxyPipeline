@@ -26,7 +26,10 @@ jobs:
       - name: Set environment variables
         env:
           GIT_USERNAME: ${{ secrets.GIT_USERNAME }}  # 从 Secrets 中读取
-          GIT_PASSWORD: ${{ secrets.GIT_PASSWORD }}  # 从 Secrets 中读取
+          GIT_PASSWORD: ${{ secrets.GIT_PASSWORD }}  # 从 Secrets 
+        run: |
+          echo "GIT_USERNAME=$GIT_USERNAME" >> $GITHUB_ENV
+          echo "GIT_PASSWORD=$GIT_PASSWORD" >> $GITHUB_ENV
 
       - name: Run v2rayN updater
         run: |
