@@ -1,0 +1,31 @@
+{
+  "download": {
+    "providers": [
+      {
+        "name": "freeclashnode.com",
+        "base_url": "https://www.freeclashnode.com/uploads/YYYY/MM/{0-4}-YYYYMMDD.txt"
+      }
+    ],
+    "retain_days": 1,
+    "output_file": "all_addresses.txt"
+  },
+  "validation": {
+    "ping_timeout": 1000,
+    "valid_output_file": "valid_addresses.txt",
+    "validation_interval": 3600
+  },
+  "proxies": {
+    "enable_proxy": false,
+    "http": "http://127.0.0.1:10808",
+    "https": "http://127.0.0.1:10808"
+  },
+  "git": {
+    "enable_git_upload": true,
+    "repo_url": "https://github.com/spincat/SmartProxyPipeline.git",
+    "repo_path": ".",
+    "username": "$GIT_USERNAME",
+    "password": "$GIT_PASSWORD",
+    "user_name": "GitHub Actions",  
+    "user_email": "actions@github.com" 
+  }
+}
