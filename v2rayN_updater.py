@@ -386,6 +386,7 @@ def validate_addresses(config):
     # 写入文件前，打印日志
     logging.info(f"准备写入文件: {output_file}")
     logging.info(f"有效地址数量: {len(valid_addresses)}")
+    logging.info(f"输出文件路径: {os.path.abspath(output_file)}")
     
     try:
         with open(output_file, 'w', encoding='utf-8') as f:
