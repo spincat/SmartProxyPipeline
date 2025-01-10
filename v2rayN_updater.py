@@ -381,9 +381,18 @@ def validate_addresses(config):
     
     # 按延迟排序
     valid_addresses.sort(key=lambda x: x[1])
-    with open(config['validation']['valid_output_file'], 'w', encoding='utf-8') as f:
-        f.write('\n'.join([addr for addr, _ in valid_addresses]))
-    logging.info(f"Validated {len(valid_addresses)} addresses out of {len(addresses)}.")
+    output_file = config['validation']['valid_output_file']
+    
+    # 写入文件前，打印日志
+    logging.info(f"准备写入文件: {output_file}")
+    logging.info(f"有效地址数量: {len(valid_addresses)}")
+    
+    try:
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write('\n'.join([addr for addr, _ in valid_addresses]))
+        logging.info(f"文件写入成功: {output_file}")
+    except Exception as e:
+        logging.error(f"文件写入失败: {e}")
 
 def upload_to_git(config):
     """
