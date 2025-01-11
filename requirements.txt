@@ -1,0 +1,55 @@
+# requirements.txt
+
+# 核心依赖
+requests>=2.26.0
+jsonschema>=4.0.0
+python-git>=0.10.0
+schedule>=1.1.0
+
+# 日志记录
+logging>=0.5.1.2
+
+# 并发处理
+concurrent-log-handler>=0.9.20
+
+# 系统工具
+subprocess32>=3.5.4; python_version < '3.0'
+
+# 编码处理
+chardet>=4.0.0
+
+# 时间处理
+python-dateutil>=2.8.2
+
+# 正则表达式
+regex>=2021.10.23
+
+# 其他工具
+urllib3>=1.26.7# requirements.txt
+
+# 核心依赖
+requests>=2.26.0
+jsonschema>=4.0.0
+python-git>=0.10.0
+schedule>=1.1.0
+
+# 日志记录
+logging>=0.5.1.2
+
+# 并发处理
+concurrent-log-handler>=0.9.20
+
+# 系统工具
+subprocess32>=3.5.4; python_version < '3.0'
+
+# 编码处理
+chardet>=4.0.0
+
+# 时间处理
+python-dateutil>=2.8.2
+
+# 正则表达式
+regex>=2021.10.23
+
+# 其他工具
+urllib3>=1.26.7
